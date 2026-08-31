@@ -16,6 +16,7 @@ proxy-providers:
     payload:
       - name: "Private placeholder"
         type: reject
+        client-fingerprint: chrome
 
 proxy-groups:
   - name: Proxy
