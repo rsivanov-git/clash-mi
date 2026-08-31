@@ -55,7 +55,7 @@ rules:
   - DOMAIN-SUFFIX,imdt.pro,DIRECT
 
   # Russia
-  - GEOSITE,RU,DIRECT
+  - GEOSITE,category-ru,DIRECT
   - GEOIP,RU,DIRECT,no-resolve
 
   # Everything else
