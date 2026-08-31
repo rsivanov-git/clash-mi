@@ -14,7 +14,7 @@ proxy-groups:
   - name: Proxy
     type: select
     use:
-      - Personal
+      - Proxy-List
 
 rules:
   - GEOIP,LAN,DIRECT,no-resolve
