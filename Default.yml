@@ -10,6 +10,13 @@ dns:
     - https://dns.nextdns.io
   use-system-hosts: true
 
+proxy-providers:
+  Proxy-List:
+    type: inline
+    payload:
+      - name: "Private placeholder"
+        type: reject
+
 proxy-groups:
   - name: Proxy
     type: select
