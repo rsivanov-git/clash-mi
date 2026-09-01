@@ -26,9 +26,7 @@ Personal.yml (personal overwrite, Secret Gist)
 Core Settings → Overwrite → +
 ```
 
-Добавьте Raw URL вашего `Personal.yml`, задайте имя **Personal** и сохраните.
-
-![Personal overwrite](docs/images/overwrite.jpg)
+Добавьте Raw URL вашего `Personal.yml` через Add Profile Link, задайте имя **Personal** и сохраните.
 
 В списке Overwrite должен появиться `Personal`.
 
@@ -48,8 +46,6 @@ https://raw.githubusercontent.com/rsivanov-git/clash-mi/refs/heads/main/Default.
 
 Тип оставьте `yaml`.
 
-![Add Profile Link](docs/images/add-profile.jpg)
-
 Для профиля выберите **Core Overwrite → Current Selected (Personal)**. При необходимости задайте интервал обновления, например `1 d`.
 
 После сохранения в **My Profiles** у профиля Default должно отображаться:
@@ -57,8 +53,6 @@ https://raw.githubusercontent.com/rsivanov-git/clash-mi/refs/heads/main/Default.
 ```text
 Current Selected [Personal]
 ```
-
-![Default profile with Personal overwrite](docs/images/profiles.jpg)
 
 ## 3. Как разделены настройки
 
