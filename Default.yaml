@@ -9,6 +9,8 @@ dns:
   nameserver:
     - https://dns.nextdns.io
   use-system-hosts: true
+  fake-ip-filter:
+    - geosite:connectivity-check
 
 proxy-providers:
   Proxy-List:
@@ -52,6 +54,7 @@ rule-providers:
 
 rules:
   - GEOIP,LAN,DIRECT,no-resolve
+  - GEOSITE,connectivity-check,DIRECT
   - RULE-SET,apple-system,DIRECT
   - GEOSITE,icloudprivaterelay,DIRECT
   - DOMAIN,_test.local,REJECT
