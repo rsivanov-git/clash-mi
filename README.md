@@ -14,6 +14,14 @@ Personal.yml (personal overwrite, Secret Gist)
 
 Публичная часть содержит общую конфигурацию: DNS, правила, proxy groups и другие настройки. Персональная часть содержит приватные параметры, в первую очередь реальные proxy nodes.
 
+## Приложения Clash Mi
+
+- **iOS / iPadOS:** [Clash Mi в App Store](https://apps.apple.com/us/app/clash-mi/id6744321968)
+- **Android:** [Clash Mi — последняя версия на GitHub Releases](https://github.com/KaringX/clashmi/releases/latest)
+- **macOS:** [Clash Mi — последняя версия на GitHub Releases](https://github.com/KaringX/clashmi/releases/latest)
+
+Официальная страница загрузки для всех платформ: [clashmi.app/download](https://clashmi.app/download).
+
 ## 1. Добавить персональный overwrite
 
 Создайте `Personal.yml` и разместите его в **Secret Gist**. Используйте **Raw**-ссылку на файл Gist.
