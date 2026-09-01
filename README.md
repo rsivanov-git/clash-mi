@@ -18,7 +18,7 @@ Personal.yml (personal overwrite, Secret Gist)
 
 Создайте `Personal.yml` и разместите его в **Secret Gist**. Используйте **Raw**-ссылку на файл Gist.
 
-> Secret Gist является unlisted, а не полноценным private-хранилищем: любой, кто получит ссылку, сможет прочитать содержимое. Не публикуйте Raw URL в этом репозитории.
+> Secret Gist является unlisted, а не полноценным private-хранилищем: любой, кто получит ссылку, сможет прочитать содержимое.
 
 В Clash Mi откройте:
 
