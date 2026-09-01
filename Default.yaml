@@ -6,6 +6,7 @@ hosts:
 
 dns:
   enable: true
+  enhanced-mode: fake-ip
   nameserver:
     - https://dns.nextdns.io
   use-system-hosts: true
