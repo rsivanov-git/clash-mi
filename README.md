@@ -97,7 +97,7 @@ proxy-providers:
         server: YOUR_SERVER
         port: 9443
         password: "YOUR_PASSWORD"
-        sni: uk.rsivanov.com
+        sni: YOUR_SERVER
         down: 1024
         udp: true
         client-fingerprint: chrome
@@ -107,7 +107,7 @@ proxy-providers:
         server: YOUR_SERVER
         port: 8443
         password: "YOUR_PASSWORD"
-        sni: uk.rsivanov.com
+        sni: YOUR_SERVER
         udp: true
         client-fingerprint: chrome
 ```
