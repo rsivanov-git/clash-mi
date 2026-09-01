@@ -1,13 +1,13 @@
 # Clash Mi — public profile + personal overwrite
 
-В этом репозитории хранится публичный профиль **Clash Mi** `Default.yml`.
+В этом репозитории хранится публичный профиль **Clash Mi** `Default.yaml`.
 
 Рекомендуемая схема:
 
 ```text
-Default.yml (public, GitHub)
+Default.yaml (public, GitHub)
           +
-Personal.yml (personal overwrite, Secret Gist)
+Personal.yaml (personal overwrite, Secret Gist)
           ↓
       Clash Mi
 ```
@@ -24,7 +24,7 @@ Personal.yml (personal overwrite, Secret Gist)
 
 ## 1. Добавить персональный overwrite
 
-Создайте `Personal.yml` и разместите его в **Secret Gist**. Используйте **Raw**-ссылку на файл Gist.
+Создайте `Personal.yaml` и разместите его в **Secret Gist**. Используйте **Raw**-ссылку на файл Gist.
 
 > Secret Gist является unlisted, а не полноценным private-хранилищем: любой, кто получит ссылку, сможет прочитать содержимое.
 
@@ -34,7 +34,7 @@ Personal.yml (personal overwrite, Secret Gist)
 Core Settings → Overwrite → +
 ```
 
-Добавьте Raw URL вашего `Personal.yml` через Add Profile Link, задайте имя **Personal** и сохраните.
+Добавьте Raw URL вашего `Personal.yaml` через Add Profile Link, задайте имя **Personal** и сохраните.
 
 В списке Overwrite должен появиться `Personal`.
 
@@ -49,7 +49,7 @@ My Profiles → +
 В поле **Clash Profile Link** укажите:
 
 ```text
-https://raw.githubusercontent.com/rsivanov-git/clash-mi/refs/heads/main/Default.yml
+https://raw.githubusercontent.com/rsivanov-git/clash-mi/refs/heads/main/Default.yaml
 ```
 
 Тип оставьте `yaml`.
@@ -64,7 +64,7 @@ Current Selected [Personal]
 
 ## 3. Как разделены настройки
 
-### Default.yml
+### Default.yaml
 
 Публичный профиль использует только логическое имя proxy provider:
 
@@ -85,7 +85,7 @@ proxy-groups:
 
 Placeholder нужен, чтобы публичный профиль оставался валидным даже без персонального overwrite.
 
-### Personal.yml
+### Personal.yaml
 
 Персональный overwrite заменяет `Proxy-List` реальными proxy nodes:
 
@@ -114,11 +114,11 @@ proxy-providers:
         client-fingerprint: chrome
 ```
 
-В результате `Default.yml` не содержит IP-адресов, паролей и других персональных данных. При изменении общих правил достаточно обновить публичный `Default.yml`; личные proxy nodes продолжают храниться отдельно в `Personal.yml`.
+В результате `Default.yaml` не содержит IP-адресов, паролей и других персональных данных. При изменении общих правил достаточно обновить публичный `Default.yaml`; личные proxy nodes продолжают храниться отдельно в `Personal.yaml`.
 
 ## 4. Обновление
 
-- `Default.yml` обновляется по Raw GitHub URL.
-- `Personal.yml` обновляется отдельно по Raw URL Secret Gist.
+- `Default.yaml` обновляется по Raw GitHub URL.
+- `Personal.yaml` обновляется отдельно по Raw URL Secret Gist.
 - Clash Mi применяет выбранный Core Overwrite к активному профилю.
-- Активным остаётся только один профиль — `Default.yml`; `Personal.yml` подключается именно как **Overwrite**, а не как второй профиль.
+- Активным остаётся только один профиль — `Default.yaml`; `Personal.yaml` подключается именно как **Overwrite**, а не как второй профиль.
