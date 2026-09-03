@@ -56,6 +56,7 @@ rule-providers:
 rules:
   - GEOIP,LAN,DIRECT,no-resolve
   - GEOSITE,connectivity-check,DIRECT
+  - GEOSITE,category-ntp,DIRECT
   - RULE-SET,apple-system,DIRECT
   - GEOSITE,icloudprivaterelay,DIRECT
   - DOMAIN,_test.local,REJECT
