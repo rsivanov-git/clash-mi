@@ -87,8 +87,8 @@ rules:
   - DOMAIN-SUFFIX,quantum-a.io,DIRECT
   - DOMAIN-SUFFIX,lmru.tech,DIRECT
   - DOMAIN-SUFFIX,imdt.pro,DIRECT
-  - DOMAIN-SUFFIX,fintechru.org
-  - DOMAIN-SUFFIX,rozetked.me
+  - DOMAIN-SUFFIX,fintechru.org,DIRECT
+  - DOMAIN-SUFFIX,rozetked.me,DIRECT
 
   # Russia
   - GEOSITE,category-ru,DIRECT
