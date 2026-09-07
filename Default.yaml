@@ -89,6 +89,7 @@ rules:
   - DOMAIN-SUFFIX,imdt.pro,DIRECT
   - DOMAIN-SUFFIX,fintechru.org,DIRECT
   - DOMAIN-SUFFIX,rozetked.me,DIRECT
+  - DOMAIN-SUFFIX,curator.pro,DIRECT
 
   # Russia
   - GEOSITE,category-ru,DIRECT
