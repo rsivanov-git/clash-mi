@@ -104,6 +104,9 @@ rules:
   - DOMAIN-SUFFIX,curator.pro,DIRECT
 
   #Tailscale
+  - DOMAIN,controlplane.tailscale.com,DIRECT
+  - DOMAIN,login.tailscale.com,DIRECT
+  - DOMAIN,log.tailscale.com,DIRECT
   - DOMAIN-SUFFIX,ts.net,Tailscale
   - IP-CIDR,100.64.0.0/10,Tailscale,no-resolve
   
