@@ -82,6 +82,7 @@ rules:
   - DOMAIN-SUFFIX,tricolor.tv,DIRECT
 
   # Misc
+  - DOMAIN-SUFFIX,habr.com,DIRECT
   - DOMAIN-SUFFIX,wylsa.com,DIRECT
   - DOMAIN-SUFFIX,wishmaster.me,DIRECT
   - DOMAIN-SUFFIX,quantum-a.io,DIRECT
