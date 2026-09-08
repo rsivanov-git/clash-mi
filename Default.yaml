@@ -20,12 +20,23 @@ proxy-providers:
       - name: "Private placeholder"
         type: reject
         client-fingerprint: chrome
+  Tailscale-Provider:
+    type: inline
+    payload:
+      - name: "Private placeholder"
+        type: reject
+        client-fingerprint: chrome
 
 proxy-groups:
   - name: Proxy
     type: select
     use:
       - Proxy-List
+  - name: Tailscale
+    type: select
+    use:
+      - Tailscale-Provider
+  
 
 rule-providers:
   apple-system:
@@ -92,6 +103,10 @@ rules:
   - DOMAIN-SUFFIX,rozetked.me,DIRECT
   - DOMAIN-SUFFIX,curator.pro,DIRECT
 
+  #Tailscale
+  - DOMAIN-SUFFIX,ts.net,Tailscale
+  - IP-CIDR,100.64.0.0/10,Tailscale,no-resolve
+  
   # Russia
   - GEOSITE,category-ru,DIRECT
   - GEOIP,RU,DIRECT,no-resolve
