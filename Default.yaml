@@ -10,7 +10,7 @@ dns:
   nameserver:
     - https://dns.nextdns.io
   nameserver-policy:
-    - "+.ts.net": "udp://100.100.100.100:53#Tailscale"
+    "+.ts.net": "udp://100.100.100.100:53#Tailscale"
   use-system-hosts: true
   fake-ip-filter:
     - "*.lan"
