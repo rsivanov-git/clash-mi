@@ -9,9 +9,13 @@ dns:
   enhanced-mode: fake-ip
   nameserver:
     - https://dns.nextdns.io
+  nameserver-policy:
+    - "*.ts.net": "udp://100.100.100.100:53#Tailscale"
   use-system-hosts: true
   fake-ip-filter:
+    - "*.lan"
     - geosite:connectivity-check
+    - geosite:tailscale
 
 proxy-providers:
   Proxy-List:
