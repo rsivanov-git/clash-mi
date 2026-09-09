@@ -7,7 +7,7 @@
 ```text
 Default.yaml (public, GitHub)
           +
-Personal.yaml (personal overwrite, Secret Gist)
+Personal.yaml (Core Settings override, private GitHub repository)
           ↓
       Clash Mi
 ```
@@ -24,9 +24,11 @@ Personal.yaml (personal overwrite, Secret Gist)
 
 ## 1. Добавить персональный overwrite
 
-Создайте `Personal.yaml` и разместите его в **Secret Gist**. Используйте **Raw**-ссылку на файл Gist.
+Создайте отдельный **закрытый (Private) репозиторий GitHub** и сохраните в нём `Personal.yaml` по примеру ниже. Замените адреса серверов, пароли, SNI и ключ Tailscale своими значениями. Реальный `Personal.yaml` с секретами должен храниться только в закрытом репозитории.
 
-> Secret Gist является unlisted, а не полноценным private-хранилищем: любой, кто получит ссылку, сможет прочитать содержимое.
+Скачайте `Personal.yaml` из GitHub, войдя в аккаунт с доступом к этому репозиторию. Затем импортируйте скачанный YAML-файл в раздел **Core Settings → Overwrite (Override)** приложения Clash Mi.
+
+> Обычная Raw-ссылка на файл закрытого репозитория не предоставляет доступ без авторизации. Для загрузки и автоматического обновления по ссылке нужен отдельно настроенный способ авторизованного получения файла. Вариант с локальным импортом не требует передачи GitHub-токена приложению. Secret Gist не равнозначен закрытому репозиторию: его содержимое доступно любому, у кого есть ссылка.
 
 В Clash Mi откройте:
 
@@ -34,7 +36,7 @@ Personal.yaml (personal overwrite, Secret Gist)
 Core Settings → Overwrite → +
 ```
 
-Добавьте Raw URL вашего `Personal.yaml` через Add Profile Link, задайте имя **Personal** и сохраните.
+Импортируйте скачанный `Personal.yaml`, задайте имя **Personal**, сохраните и выберите его как текущий overwrite. **Add Profile Link** используйте только при наличии ссылки, по которой приложение действительно может получить YAML.
 
 В списке Overwrite должен появиться `Personal`.
 
@@ -66,7 +68,7 @@ Current Selected [Personal]
 
 ### Default.yaml
 
-Публичный профиль использует только логическое имя proxy provider:
+Публичный профиль содержит два proxy provider с заглушками: `Proxy-List` для внешних прокси и `Tailscale-Provider` для Tailscale. Группы используют их по имени. Например:
 
 ```yaml
 proxy-providers:
@@ -87,38 +89,50 @@ Placeholder нужен, чтобы публичный профиль остав�
 
 ### Personal.yaml
 
-Персональный overwrite заменяет `Proxy-List` реальными proxy nodes:
+Персональный overwrite заменяет содержимое `Proxy-List` и `Tailscale-Provider`. Пример `Personal.yaml` для размещения в закрытом репозитории:
 
 ```yaml
 proxy-providers:
   Proxy-List:
     type: inline
     payload:
-      - name: "London - 🦏 🇬🇧"
-        type: hysteria2
-        server: YOUR_SERVER
-        port: 9443
-        password: "YOUR_PASSWORD"
-        sni: YOUR_SERVER
-        down: 1024
-        udp: true
-        client-fingerprint: chrome
-
-      - name: "London - 🐘 🇬🇧"
+      - name: "London - 🐁 🇬🇧"
         type: anytls
-        server: YOUR_SERVER
-        port: 8443
-        password: "YOUR_PASSWORD"
-        sni: YOUR_SERVER
+        server: 192.0.2.10
+        port: 9443
+        password: "YOUR_ANYTLS_PASSWORD_9443"
+        sni: vpn.example.com
         udp: true
-        client-fingerprint: chrome
+
+      - name: "London - 🐀 🇬🇧"
+        type: anytls
+        server: 192.0.2.10
+        port: 8443
+        password: "YOUR_ANYTLS_PASSWORD_8443"
+        sni: vpn.example.com
+        udp: true
+
+  Tailscale-Provider:
+    type: inline
+    payload:
+      - name: Tailscale
+        type: tailscale
+        auth-key: "YOUR_TAILSCALE_AUTH_KEY"
+        hostname: clash-mi
+        accept-routes: true
+        udp: true
 ```
 
-В результате `Default.yaml` не содержит IP-адресов, паролей и других персональных данных. При изменении общих правил достаточно обновить публичный `Default.yaml`; личные proxy nodes продолжают храниться отдельно в `Personal.yaml`.
+Все адреса и секреты в примере — заглушки; перед использованием замените их. `sni` должен соответствовать вашему серверному TLS-сертификату. `auth-key` — ключ подключения устройства к вашему tailnet. `accept-routes: true` включает принятие маршрутов, объявленных subnet routers в Tailscale.
+
+Сохраните имена providers `Proxy-List` и `Tailscale-Provider`: на них ссылаются группы публичного профиля. DNS и правила маршрутизации остаются в `Default.yaml`; копировать их в персональный override не требуется.
+
+В результате `Default.yaml` не содержит адресов ваших прокси-серверов, их паролей и ключа подключения к Tailscale. При изменении общих правил достаточно обновить публичный `Default.yaml`; личные proxy nodes продолжают храниться отдельно в `Personal.yaml`.
 
 ## 4. Обновление
 
 - `Default.yaml` обновляется по Raw GitHub URL.
-- `Personal.yaml` обновляется отдельно по Raw URL Secret Gist.
+- `Personal.yaml` редактируется отдельно в закрытом GitHub-репозитории. При локальном импорте после изменения файла скачайте его заново и обновите overwrite **Personal** в Clash Mi.
+- Автоматическое обновление персонального overwrite по URL возможно только при настроенном авторизованном доступе к файлу; обычной Raw-ссылки закрытого репозитория недостаточно.
 - Clash Mi применяет выбранный Core Overwrite к активному профилю.
 - Активным остаётся только один профиль — `Default.yaml`; `Personal.yaml` подключается именно как **Overwrite**, а не как второй профиль.
