@@ -4,13 +4,12 @@
 
 Рекомендуемая схема:
 
-```text
-Default.yaml (public, GitHub)
-          +
-Personal.yaml (Core Settings override, private GitHub repository)
-          ↓
-      Clash Mi
-```
+| Компонент | Источник |
+| --- | --- |
+| Основной профиль `Default.yaml` | Публичный GitHub-репозиторий |
+| `Personal.yaml` при первом подключении | Локально импортированная копия |
+| `Personal.yaml` после подключения к Tailscale | Единый HTTPS-адрес Tailscale Service на нескольких VPS с `private-git-proxy` |
+| Оригинал `Personal.yaml` | Закрытый GitHub-репозиторий `clash-mi-personal` |
 
 Публичная часть содержит общую конфигурацию: DNS, правила, proxy groups и другие настройки. Персональная часть содержит приватные параметры, в первую очередь реальные proxy nodes.
 
@@ -22,23 +21,18 @@ Personal.yaml (Core Settings override, private GitHub repository)
 
 Официальная страница загрузки для всех платформ: [clashmi.app/download](https://clashmi.app/download).
 
-## 1. Добавить персональный overwrite
+## 1. Первое подключение: локальный Personal.yaml
 
-Создайте отдельный **закрытый (Private) репозиторий GitHub** и сохраните в нём `Personal.yaml` по примеру ниже. Замените адреса серверов, пароли, SNI и ключ Tailscale своими значениями. Реальный `Personal.yaml` с секретами должен храниться только в закрытом репозитории.
+Создайте отдельный **закрытый (Private) репозиторий GitHub**. Рекомендуемое название — **`clash-mi-personal`**. Сохраните в его корне `Personal.yaml` по примеру ниже, заменив адреса серверов, пароли, SNI и ключ Tailscale своими значениями.
 
-Скачайте `Personal.yaml` из GitHub, войдя в аккаунт с доступом к этому репозиторию. Затем импортируйте скачанный YAML-файл в раздел **Core Settings → Overwrite (Override)** приложения Clash Mi.
+**Для первого подключения необходимо импортировать копию `Personal.yaml` локально.** В этом файле находятся настройки подключения к Tailscale, а целевой сетевой источник профиля доступен только внутри tailnet. Поэтому сначала нужно получить доступ к Tailscale с помощью локальной копии.
 
-> Обычная Raw-ссылка на файл закрытого репозитория не предоставляет доступ без авторизации. Для загрузки и автоматического обновления по ссылке нужен отдельно настроенный способ авторизованного получения файла. Вариант с локальным импортом не требует передачи GitHub-токена приложению. Secret Gist не равнозначен закрытому репозиторию: его содержимое доступно любому, у кого есть ссылка.
+1. Скачайте `Personal.yaml` из закрытого репозитория, войдя в GitHub-аккаунт с доступом к нему.
+2. Откройте в Clash Mi **Core Settings → Overwrite (Override) → +**.
+3. Импортируйте скачанный YAML-файл, задайте имя **Personal Local**, сохраните и выберите его как текущий overwrite.
+4. Подключите публичный профиль по следующему разделу и запустите Clash Mi, чтобы установить соединение с Tailscale.
 
-В Clash Mi откройте:
-
-```text
-Core Settings → Overwrite → +
-```
-
-Импортируйте скачанный `Personal.yaml`, задайте имя **Personal**, сохраните и выберите его как текущий overwrite. **Add Profile Link** используйте только при наличии ссылки, по которой приложение действительно может получить YAML.
-
-В списке Overwrite должен появиться `Personal`.
+Локальная копия нужна для первоначального подключения; после него необходимо переключить overwrite на целевой сетевой источник, описанный в разделе 3.
 
 ## 2. Подключить публичный профиль Default
 
@@ -56,15 +50,52 @@ https://raw.githubusercontent.com/rsivanov-git/clash-mi/refs/heads/main/Default.
 
 Тип оставьте `yaml`.
 
-Для профиля выберите **Core Overwrite → Current Selected (Personal)**. При необходимости задайте интервал обновления, например `1 d`.
+Для профиля выберите **Core Overwrite → Current Selected (Personal Local)**. При необходимости задайте интервал обновления, например `1 d`.
 
 После сохранения в **My Profiles** у профиля Default должно отображаться:
 
 ```text
-Current Selected [Personal]
+Current Selected [Personal Local]
 ```
 
-## 3. Как разделены настройки
+## 3. Подключить целевой источник через Tailscale
+
+Целевой источник — **Tailscale Service, опубликованный на нескольких VPS**, на которых работает [`private-git-proxy`](https://github.com/rsivanov-git/private-git-proxy). Каждый экземпляр получает один и тот же `Personal.yaml` из закрытого репозитория `clash-mi-personal`. В Clash Mi используется единый адрес сервиса Tailscale.
+
+### Настройка источника на VPS
+
+Разверните `private-git-proxy` на каждом VPS по [инструкции проекта](https://github.com/rsivanov-git/private-git-proxy#docker-compose). В `.env` каждого экземпляра укажите:
+
+```dotenv
+GIT_URL=https://raw.githubusercontent.com/OWNER/clash-mi-personal/refs/heads/main/Personal.yaml
+GIT_TOKEN=YOUR_FINE_GRAINED_PERSONAL_ACCESS_TOKEN
+```
+
+Замените `OWNER` своим GitHub-логином. Для токена достаточно доступа к репозиторию `clash-mi-personal` с разрешением **Contents: Read-only**. Токен хранится на VPS; в Clash Mi его указывать не требуется.
+
+Опубликуйте экземпляры как хосты **одного и того же Tailscale Service**. Например, для заранее созданного сервиса `proxy-list` на каждом VPS:
+
+```sh
+sudo tailscale serve --bg --service=svc:proxy-list --https=443 http://127.0.0.1:8080
+```
+
+Сервис, одобрение его хостов и правила доступа для устройств Clash Mi должны быть настроены в Tailscale. Используйте приватный доступ через Serve.
+
+### Переключение overwrite с локального файла на сервис
+
+После успешного подключения Clash Mi к Tailscale:
+
+1. Откройте **Core Settings → Overwrite (Override) → + → Add Profile Link**.
+2. Укажите корневой HTTPS-адрес вашего Tailscale Service, например `https://proxy-list.YOUR-TAILNET.ts.net/`, и сохраните overwrite под именем **Personal**.
+3. Дождитесь успешной загрузки YAML, затем выберите сетевой **Personal** как текущий overwrite.
+4. У профиля `Default.yaml` оставьте **Core Overwrite → Current Selected** и убедитесь, что отображается **Current Selected [Personal]**.
+5. Настройте интервал обновления сетевого overwrite при необходимости.
+
+Адрес выше — пример: замените его фактическим HTTPS-адресом сервиса. **Не добавляйте `/Personal.yaml`**: `private-git-proxy` возвращает файл по запросу к `/`. Ссылка на закрытый GitHub-репозиторий задаётся в `GIT_URL` на VPS, а ссылка на сервис Tailscale — в Clash Mi.
+
+При загрузке overwrite соединение с Tailscale должно быть активно. Если на новом устройстве ещё нет настроек Tailscale, повторите первоначальный локальный импорт из раздела 1.
+
+## 4. Как разделены настройки
 
 ### Default.yaml
 
@@ -129,10 +160,11 @@ proxy-providers:
 
 В результате `Default.yaml` не содержит адресов ваших прокси-серверов, их паролей и ключа подключения к Tailscale. При изменении общих правил достаточно обновить публичный `Default.yaml`; личные proxy nodes продолжают храниться отдельно в `Personal.yaml`.
 
-## 4. Обновление
+## 5. Обновление
 
-- `Default.yaml` обновляется по Raw GitHub URL.
-- `Personal.yaml` редактируется отдельно в закрытом GitHub-репозитории. При локальном импорте после изменения файла скачайте его заново и обновите overwrite **Personal** в Clash Mi.
-- Автоматическое обновление персонального overwrite по URL возможно только при настроенном авторизованном доступе к файлу; обычной Raw-ссылки закрытого репозитория недостаточно.
+- `Default.yaml` обновляется по публичному Raw GitHub URL.
+- `Personal.yaml` редактируется в закрытом репозитории `clash-mi-personal`.
+- После первоначального локального импорта персональный overwrite загружается и обновляется через HTTPS-адрес Tailscale Service. Каждый запрос к `private-git-proxy` получает файл из настроенного закрытого репозитория.
+- Для обновления сетевого overwrite требуется доступ к Tailscale Service.
 - Clash Mi применяет выбранный Core Overwrite к активному профилю.
-- Активным остаётся только один профиль — `Default.yaml`; `Personal.yaml` подключается именно как **Overwrite**, а не как второй профиль.
+- Активным остаётся профиль `Default.yaml`; `Personal.yaml` подключается как **Core Settings override**.
