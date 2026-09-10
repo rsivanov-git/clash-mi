@@ -1,5 +1,5 @@
 mode: rule
-log-level: error
+log-level: debug
 
 hosts:
   ntc.party: 130.255.77.28
