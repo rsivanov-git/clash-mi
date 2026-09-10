@@ -1,5 +1,5 @@
 mode: rule
-log-level: debug
+log-level: error
 
 hosts:
   ntc.party: 130.255.77.28
@@ -22,14 +22,14 @@ proxy-providers:
     type: inline
     payload:
       - name: "Private placeholder"
-        type: reject
-        client-fingerprint: chrome
+        type: direct
+        client-fingerprint: firefox
   Tailscale-Provider:
     type: inline
     payload:
       - name: "Private placeholder"
-        type: reject
-        client-fingerprint: chrome
+        type: direct
+        client-fingerprint: firefox
 
 proxy-groups:
   - name: Proxy
@@ -40,7 +40,6 @@ proxy-groups:
     type: select
     use:
       - Tailscale-Provider
-  
 
 rule-providers:
   apple-system:
@@ -110,7 +109,6 @@ rules:
   #Tailscale
   - DOMAIN-SUFFIX,ts.net,Tailscale
   - IP-CIDR,100.64.0.0/10,Tailscale,no-resolve
-  - GEOSITE,tailscale,DIRECT
   
   # Russia
   - GEOSITE,category-ru,DIRECT
