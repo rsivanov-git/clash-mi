@@ -116,7 +116,5 @@ rules:
   - GEOSITE,category-ru,DIRECT
   - GEOIP,RU,DIRECT,no-resolve
 
-  # Block QUIC for everything that would otherwise be proxied
-  - AND,((NETWORK,UDP),(DST-PORT,443)),REJECT
   # Everything else
   - MATCH,Proxy
