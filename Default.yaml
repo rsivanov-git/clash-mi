@@ -9,13 +9,10 @@ dns:
   enhanced-mode: fake-ip
   nameserver:
     - https://dns.nextdns.io
-  nameserver-policy:
-    "+.ts.net": "tailscale://Tailscale"
   use-system-hosts: true
   fake-ip-filter:
     - "*.lan"
     - geosite:connectivity-check
-    - geosite:tailscale
 
 proxy-providers:
   Proxy-List:
@@ -30,10 +27,6 @@ proxy-groups:
     type: select
     use:
       - Proxy-List
-
-proxies:
-  - name: Tailscale
-    type: tailscale
     
 rule-providers:
   apple-system:
@@ -62,11 +55,6 @@ rule-providers:
       - PROCESS-NAME,netbiosd
 
 rules:
-  #Tailscale
-  - DOMAIN-SUFFIX,ts.net,Tailscale
-  - IP-CIDR,100.64.0.0/10,Tailscale,no-resolve
-  - GEOSITE,tailscale,DIRECT
-  
   - GEOIP,LAN,DIRECT,no-resolve
   - GEOSITE,connectivity-check,DIRECT
   - GEOSITE,category-ntp,DIRECT
