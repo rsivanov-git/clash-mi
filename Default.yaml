@@ -110,6 +110,7 @@ rules:
   #Tailscale
   - DOMAIN-SUFFIX,ts.net,Tailscale
   - IP-CIDR,100.64.0.0/10,Tailscale,no-resolve
+  - GEOSITE,geosite:tailscale,DIRECT
   
   # Russia
   - GEOSITE,category-ru,DIRECT
