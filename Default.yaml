@@ -34,10 +34,6 @@ proxy-groups:
 proxies:
   - name: Tailscale
     type: tailscale
-    hostname: clash-mi
-    auth-key: "tskey-auth-REPLACE-ME"
-    ephemeral: false
-    udp: true
     
 rule-providers:
   apple-system:
