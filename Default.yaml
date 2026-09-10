@@ -24,12 +24,6 @@ proxy-providers:
       - name: "Private placeholder"
         type: direct
         client-fingerprint: firefox
-  Tailscale-Provider:
-    type: inline
-    payload:
-      - name: "Private placeholder"
-        type: direct
-        client-fingerprint: firefox
 
 proxy-groups:
   - name: Proxy
