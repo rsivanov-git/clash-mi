@@ -36,11 +36,15 @@ proxy-groups:
     type: select
     use:
       - Proxy-List
-  - name: Tailscale
-    type: select
-    use:
-      - Tailscale-Provider
 
+proxies:
+  - name: Tailscale
+    type: tailscale
+    hostname: clash-mi
+    auth-key: "tskey-auth-REPLACE-ME"
+    ephemeral: false
+    udp: true
+    
 rule-providers:
   apple-system:
     type: inline
