@@ -72,6 +72,11 @@ rule-providers:
       - PROCESS-NAME,netbiosd
 
 rules:
+  #Tailscale
+  - DOMAIN-SUFFIX,ts.net,Tailscale
+  - IP-CIDR,100.64.0.0/10,Tailscale,no-resolve
+  - GEOSITE,tailscale,DIRECT
+  
   - GEOIP,LAN,DIRECT,no-resolve
   - GEOSITE,connectivity-check,DIRECT
   - GEOSITE,category-ntp,DIRECT
@@ -109,11 +114,6 @@ rules:
   - DOMAIN-SUFFIX,fintechru.org,DIRECT
   - DOMAIN-SUFFIX,rozetked.me,DIRECT
   - DOMAIN-SUFFIX,curator.pro,DIRECT
-
-  #Tailscale
-  - DOMAIN-SUFFIX,ts.net,Tailscale
-  - IP-CIDR,100.64.0.0/10,Tailscale,no-resolve
-  - GEOSITE,tailscale,DIRECT
   
   # Russia
   - GEOSITE,category-ru,DIRECT
