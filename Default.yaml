@@ -92,6 +92,7 @@ rules:
   - DOMAIN-SUFFIX,fintechru.org,DIRECT
   - DOMAIN-SUFFIX,rozetked.me,DIRECT
   - DOMAIN-SUFFIX,curator.pro,DIRECT
+  - DOMAIN-SUFFIX,netcraze.cloud,DIRECT
   
   # Russia
   - GEOSITE,category-ru,DIRECT
