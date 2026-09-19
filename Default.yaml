@@ -6,9 +6,11 @@ hosts:
 
 dns:
   enable: true
-  enhanced-mode: redir-host
+  enhanced-mode: fake-ip
   nameserver:
     - https://dns.nextdns.io
+  nameserver-policy:
+    "+.ts.net": "ts://TAILSCALE"
   use-system-hosts: true
   fake-ip-filter:
     - "*.lan"
