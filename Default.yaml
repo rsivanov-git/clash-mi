@@ -9,6 +9,7 @@ dns:
   enhanced-mode: redir-host
   nameserver:
     - https://dns.nextdns.io
+    - ts://tailscale
   nameserver-policy:
     "+.ts.net": "ts://tailscale"
   use-system-hosts: true
