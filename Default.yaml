@@ -4,6 +4,10 @@ log-level: error
 hosts:
   ntc.party: 130.255.77.28
 
+tun:
+  dns-hijack:
+      - any:53
+
 dns:
   enable: true
   enhanced-mode: fake-ip
