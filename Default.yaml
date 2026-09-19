@@ -12,7 +12,7 @@ dns:
   use-system-hosts: true
   nameserver-policy:
     "+.ts.net":
-      - "udp://100.100.100.100#Tailscale"
+      - "udp://100.100.100.100#TAILSCALE"
   fake-ip-filter:
     - "*.lan"
     - geosite:connectivity-check
@@ -26,10 +26,10 @@ proxy-providers:
         client-fingerprint: firefox
 
 proxy-groups:
-  - name: Proxy
+  - name: PROXY
     type: select
     use:
-      - Proxy-List
+      - PROXY-LIST
     
 rule-providers:
   apple-system:
@@ -58,13 +58,13 @@ rule-providers:
       - PROCESS-NAME,netbiosd
 
 rules:
-  - DOMAIN-SUFFIX,ts.net,Tailscale
-  - IP-CIDR,100.64.0.0/10,Tailscale,no-resolve
+  - DOMAIN-SUFFIX,ts.net,TAILSCALE
+  - IP-CIDR,100.64.0.0/10,TAILSCALE,no-resolve
   
   - GEOIP,LAN,DIRECT,no-resolve
   - GEOSITE,connectivity-check,DIRECT
   - GEOSITE,category-ntp,DIRECT
-  - DOMAIN,guzzoni.apple.com,Proxy
+  - DOMAIN,guzzoni.apple.com,PROXY
   - RULE-SET,apple-system,DIRECT
   - GEOSITE,icloudprivaterelay,DIRECT
   - DOMAIN,_test.local,REJECT
@@ -107,4 +107,4 @@ rules:
   - GEOIP,RU,DIRECT,no-resolve
 
   # Everything else
-  - MATCH,Proxy
+  - MATCH,PROXY
