@@ -26,7 +26,7 @@ proxy-providers:
         client-fingerprint: firefox
 
 proxy-groups:
-  - name: Proxy
+  - name: PROXY
     type: select
     use:
       - Proxy-List
@@ -107,4 +107,4 @@ rules:
   - GEOIP,RU,DIRECT,no-resolve
 
   # Everything else
-  - MATCH,Proxy
+  - MATCH,PROXY
