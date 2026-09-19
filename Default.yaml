@@ -10,7 +10,7 @@ dns:
   nameserver:
     - https://dns.nextdns.io
   nameserver-policy:
-    "+.ts.net": "ts://TAILSCALE"
+    "+.ts.net": "ts://tailscale"
   use-system-hosts: true
   fake-ip-filter:
     - "*.lan"
@@ -18,7 +18,7 @@ dns:
     - geosite:connectivity-check
 
 proxy-providers:
-  PROXY-LIST:
+  proxy-list:
     type: inline
     payload:
       - name: "Private placeholder"
@@ -26,10 +26,10 @@ proxy-providers:
         client-fingerprint: firefox
 
 proxy-groups:
-  - name: PROXY
+  - name: proxy
     type: select
     use:
-      - PROXY-LIST
+      - proxy-list
     
 rule-providers:
   apple-system:
@@ -58,53 +58,53 @@ rule-providers:
       - PROCESS-NAME,netbiosd
 
 rules:
-  - DOMAIN-SUFFIX,ts.net,TAILSCALE
-  - IP-CIDR,100.64.0.0/10,TAILSCALE,no-resolve
+  - DOMAIN-SUFFIX,ts.net,tailscale
+  - IP-CIDR,100.64.0.0/10,tailscale,no-resolve
   
-  - GEOIP,LAN,DIRECT,no-resolve
-  - GEOSITE,connectivity-check,DIRECT
-  - GEOSITE,category-ntp,DIRECT
-  - DOMAIN,guzzoni.apple.com,PROXY
-  - RULE-SET,apple-system,DIRECT
-  - GEOSITE,icloudprivaterelay,DIRECT
-  - DOMAIN,_test.local,REJECT
+  - GEOIP,LAN,direct,no-resolve
+  - GEOSITE,connectivity-check,direct
+  - GEOSITE,category-ntp,direct
+  - DOMAIN,guzzoni.apple.com,proxy
+  - RULE-SET,apple-system,direct
+  - GEOSITE,icloudprivaterelay,direct
+  - DOMAIN,_test.local,reject
 
   # Kino.pub
-  - DOMAIN-SUFFIX,cdntogo.net,DIRECT
+  - DOMAIN-SUFFIX,cdntogo.net,direct
   # Docker mirrors
-  - DOMAIN-SUFFIX,mirror.gcr.io,DIRECT
+  - DOMAIN-SUFFIX,mirror.gcr.io,direct
 
   # Aliexpress payments
-  - DOMAIN-SUFFIX,inplat-tech.com,DIRECT
+  - DOMAIN-SUFFIX,inplat-tech.com,direct
 
   # OneDrive
-  - DOMAIN-SUFFIX,my.microsoftpersonalcontent.com,DIRECT
+  - DOMAIN-SUFFIX,my.microsoftpersonalcontent.com,direct
   # Misc
-  - DOMAIN-SUFFIX,vfsglobal.com,DIRECT
-  - DOMAIN-SUFFIX,izi.me,DIRECT
-  - DOMAIN-SUFFIX,iziyo.xyz,DIRECT
+  - DOMAIN-SUFFIX,vfsglobal.com,direct
+  - DOMAIN-SUFFIX,izi.me,direct
+  - DOMAIN-SUFFIX,iziyo.xyz,direct
 
   # Licard
-  - DOMAIN-SUFFIX,licard.com,DIRECT
+  - DOMAIN-SUFFIX,licard.com,direct
   # Tricolor
-  - DOMAIN-SUFFIX,tricolor.tv,DIRECT
+  - DOMAIN-SUFFIX,tricolor.tv,direct
 
   # Misc
-  - DOMAIN-SUFFIX,habr.com,DIRECT
-  - DOMAIN-SUFFIX,wylsa.com,DIRECT
-  - DOMAIN-SUFFIX,wishmaster.me,DIRECT
-  - DOMAIN-SUFFIX,quantum-a.io,DIRECT
-  - DOMAIN-SUFFIX,lmru.tech,DIRECT
-  - DOMAIN-SUFFIX,imdt.pro,DIRECT
-  - DOMAIN-SUFFIX,fintechru.org,DIRECT
-  - DOMAIN-SUFFIX,rozetked.me,DIRECT
-  - DOMAIN-SUFFIX,curator.pro,DIRECT
-  - DOMAIN-SUFFIX,netcraze.cloud,DIRECT
-  - DOMAIN-SUFFIX,moscowtransport.app,DIRECT
+  - DOMAIN-SUFFIX,habr.com,direct
+  - DOMAIN-SUFFIX,wylsa.com,direct
+  - DOMAIN-SUFFIX,wishmaster.me,direct
+  - DOMAIN-SUFFIX,quantum-a.io,direct
+  - DOMAIN-SUFFIX,lmru.tech,direct
+  - DOMAIN-SUFFIX,imdt.pro,direct
+  - DOMAIN-SUFFIX,fintechru.org,direct
+  - DOMAIN-SUFFIX,rozetked.me,direct
+  - DOMAIN-SUFFIX,curator.pro,direct
+  - DOMAIN-SUFFIX,netcraze.cloud,direct
+  - DOMAIN-SUFFIX,moscowtransport.app,direct
   
   # Russia
-  - GEOSITE,category-ru,DIRECT
-  - GEOIP,RU,DIRECT,no-resolve
+  - GEOSITE,category-ru,direct
+  - GEOIP,RU,direct,no-resolve
 
   # Everything else
-  - MATCH,PROXY
+  - MATCH,proxy
