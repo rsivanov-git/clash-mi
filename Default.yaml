@@ -6,13 +6,10 @@ hosts:
 
 dns:
   enable: true
-  enhanced-mode: redir-host
+  enhanced-mode: fake-ip
   nameserver:
     - https://dns.nextdns.io
   use-system-hosts: true
-  nameserver-policy:
-    "+.ts.net":
-      - "udp://100.100.100.100#TAILSCALE"
   fake-ip-filter:
     - "*.lan"
     - geosite:connectivity-check
