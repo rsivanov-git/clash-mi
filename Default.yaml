@@ -9,8 +9,8 @@ dns:
   enhanced-mode: fake-ip
   nameserver:
     - https://dns.nextdns.io
-  nameserver-policy:
-    "+.ts.net": "ts://tailscale"
+#  nameserver-policy:
+#    "+.ts.net": "ts://tailscale"
   use-system-hosts: true
   fake-ip-filter:
     - "*.lan"
@@ -57,8 +57,8 @@ rule-providers:
       - PROCESS-NAME,netbiosd
 
 rules:
-  - DOMAIN-SUFFIX,ts.net,tailscale
-  - IP-CIDR,100.64.0.0/10,tailscale,no-resolve
+#  - DOMAIN-SUFFIX,ts.net,tailscale
+#  - IP-CIDR,100.64.0.0/10,tailscale,no-resolve
   
   - GEOIP,LAN,DIRECT,no-resolve
   - GEOSITE,connectivity-check,DIRECT
