@@ -102,6 +102,7 @@ rules:
   - DOMAIN-SUFFIX,netcraze.cloud,DIRECT
   - DOMAIN-SUFFIX,moscowtransport.app,DIRECT
   - DOMAIN-SUFFIX,tbank.global,DIRECT
+  - DOMAIN-SUFFIX,appsflyersdk.com,DIRECT
   
   # Russia
   - GEOSITE,category-ru,DIRECT
