@@ -57,6 +57,11 @@ rule-providers:
       - PROCESS-NAME,netbiosd
 
 rules:
+  # Netseer: REJECT is the closest Mihomo action; no Surge pre-matching phase.
+  - DOMAIN-WILDCARD,*netseer-ipaddr-assoc.xy.fbcdn.net,REJECT
+  - DOMAIN-WILDCARD,*netseer-ipaddr-assoc.xz.fbcdn.net,REJECT
+  - DOMAIN-WILDCARD,*netseer.xy.fbcdn.net,REJECT
+  - DOMAIN-WILDCARD,*netseer.xz.fbcdn.net,REJECT
 #  - DOMAIN-SUFFIX,ts.net,tailscale
 #  - IP-CIDR,100.64.0.0/10,tailscale,no-resolve
   
