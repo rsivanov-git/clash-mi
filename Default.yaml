@@ -1,6 +1,12 @@
 mode: rule
 log-level: error
 
+# Intercept DNS traffic on port 53 inside Mihomo TUN.
+tun:
+  enable: true
+  dns-hijack:
+    - 'any:53'
+
 hosts:
   ntc.party: 130.255.77.28
 
