@@ -114,6 +114,7 @@ rules:
   - DOMAIN-SUFFIX,moscowtransport.app,DIRECT
   - DOMAIN-SUFFIX,tbank.global,DIRECT
   - DOMAIN-SUFFIX,appsflyersdk.com,DIRECT
+  - DOMAIN-SUFFIX,softtravel.tech,DIRECT
   
   # Russia
   - GEOSITE,category-ru,DIRECT
