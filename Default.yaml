@@ -13,8 +13,8 @@ hosts:
 dns:
   enable: true
   enhanced-mode: fake-ip
-  nameserver:
-    - https://dns.nextdns.io
+#  nameserver:
+#    - https://dns.nextdns.io
 #  nameserver-policy:
 #    "+.ts.net": "ts://tailscale"
   use-system-hosts: true
