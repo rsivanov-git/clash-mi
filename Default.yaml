@@ -10,8 +10,11 @@ tun:
 hosts:
   ntc.party: 130.255.77.28
 
+ipv6: true
+
 dns:
   enable: true
+  ipv6: true
   enhanced-mode: fake-ip
 #  nameserver-policy:
 #    "+.ts.net": "ts://tailscale"
